@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azeem MPANO || Software Engineer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom CSS for glowing effects and background */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d1117; /* Dark background */
+        }
+
+        .text-neon-green {
+            color: #39ff14; /* Neon Green */
+            text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px rgba(57, 255, 20, 0.5);
+        }
+
+        .text-neon-purple {
+            color: #bc13fe; /* Neon Purple */
+            text-shadow: 0 0 5px #bc13fe, 0 0 10px #bc13fe, 0 0 20px #bc13fe, 0 0 40px rgba(188, 19, 254, 0.5);
+        }
+
+        .text-neon-blue {
+            color: #0ff; /* Neon Blue (Cyan) */
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px rgba(0, 255, 255, 0.5);
+        }
+
+        .border-neon-green {
+            border-color: #39ff14;
+            box-shadow: 0 0 8px #39ff14;
+        }
+
+        .border-neon-purple {
+            border-color: #bc13fe;
+            box-shadow: 0 0 8px #bc13fe;
+        }
+
+        .border-neon-blue {
+            border-color: #0ff;
+            box-shadow: 0 0 8px #0ff;
+        }
+
+        /* Progress bar animation */
+        .progress-bar-fill {
+            width: 0%;
+            transition: width 1s ease-out;
+        }
+        .progress-bar-fill.animate {
+            width: var(--progress-width);
+        }
+
+        /* Gradient text for skill percentages - No longer used for percentages, but kept if needed elsewhere */
+        .text-gradient-green-blue {
+            background-image: linear-gradient(to right, #39ff14, #0ff); /* Matches progress bar gradient */
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent; /* Makes the text color transparent so the background gradient shows through */
+        }
+
+        /* Mobile menu dropdown specific styles */
+        #mobile-menu {
+            position: absolute;
+            top: 100%; /* Position right below the header */
+            right: 0;
+            width: 200px; /* Adjust width as needed */
+            background-color: #1f2937; /* Slightly lighter dark gray for dropdown */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem;
+            display: flex; /* Use flex for column layout */
+            flex-direction: column;
+            gap: 0.5rem; /* Space between links */
+            opacity: 0;
+            transform: translateY(-10px); /* Initial slight upward translation */
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            pointer-events: none; /* Prevents interaction when hidden */
+            z-index: 40; /* Ensure it's above other content */
+        }
+
+        #mobile-menu.mobile-menu-open {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto; /* Allows interaction when open */
+        }
+
+        /* Dark mode styles */
+        html.light body {
+            background-color: #f0f2f5; /* Light background */
+            background-image: none; /* No matrix effect in light mode */
+            color: #333;
+        }
+
+        html.light .text-neon-green,
+        html.light .text-neon-purple,
+        html.light .text-neon-blue {
+            color: #007bff; /* A standard blue for light mode */
+            text-shadow: none;
+        }
+
+        html.light .border-neon-green,
+        html.light .border-neon-purple,
+        html.light .border-neon-blue {
+            border-color: #ccc;
+            box-shadow: none;
+        }
+
+        html.light .bg-gray-800 {
+            background-color: #fff;
+            border-color: #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        html.light .bg-gray-900 {
+            background-color: #f9f9f9;
+        }
+        html.light .text-gray-300 {
+            color: #555;
+        }
+        html.light .text-white {
+            color: #333;
+        }
+        html.light .bg-gradient-to-r {
+            background: linear-gradient(to right, #007bff, #0056b3);
+        }
+        html.light .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+        html.light .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        html.light .btn-outline-green {
+            border-color: #007bff;
+            color: #007bff;
+        }
+        html.light .btn-outline-green:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        html.light input, html.light textarea {
+            background-color: #fff;
+            border-color: #ddd;
+            color: #333;
+        }
+    </style>
+</head>
+<body class="text-gray-300">
+    <!-- Header Section -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-gray-900 bg-opacity-90 backdrop-blur-sm p-4 flex justify-between items-center border-b border-neon-green relative">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-bolt text-neon-green text-2xl"></i>
+            <span class="text-white text-2xl font-bold">Azeem</span>
+        </div>
+        <nav class="hidden md:flex space-x-6">
+            <a href="#home" class="text-white hover:text-neon-green transition-colors duration-300">Home</a>
+            <a href="#projects" class="text-white hover:text-neon-green transition-colors duration-300">Projects</a>
+            <a href="#about" class="text-white hover:text-neon-green transition-colors duration-300">About</a>
+            <a href="#skills" class="text-white hover:text-neon-green transition-colors duration-300">Skills</a>
+            <a href="#contact" class="text-white hover:text-neon-green transition-colors duration-300 flex items-center">Contact <i class="fas fa-star ml-2 text-neon-green"></i></a>
+        </nav>
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-white focus:outline-none">
+                <i class="fas fa-bars text-2xl"></i>
+            </button>
+        </div>
+        <!-- Dark Mode Toggle -->
+        <button id="theme-toggle" class="p-2 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors duration-300">
+            <i class="fas fa-moon text-white"></i>
+        </button>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden">
+            <a href="#home" class="block text-white hover:text-neon-green transition-colors duration-300 py-2" onclick="document.getElementById('mobile-menu').classList.remove('mobile-menu-open')">Home</a>
+            <a href="#projects" class="block text-white hover:text-neon-green transition-colors duration-300 py-2" onclick="document.getElementById('mobile-menu').classList.remove('mobile-menu-open')">Projects</a>
+            <a href="#about" class="block text-white hover:text-neon-green transition-colors duration-300 py-2" onclick="document.getElementById('mobile-menu').classList.remove('mobile-menu-open')">About</a>
+            <a href="#skills" class="block text-white hover:text-neon-green transition-colors duration-300 py-2" onclick="document.getElementById('mobile-menu').classList.remove('mobile-menu-open')">Skills</a>
+            <a href="#contact" class="block text-white hover:text-neon-green transition-colors duration-300 py-2 flex items-center" onclick="document.getElementById('mobile-menu').classList.remove('mobile-menu-open')">Contact <i class="fas fa-star ml-2 text-neon-green"></i></a>
+        </div>
+    </header>
+
+    <main class="pt-20"> <!-- Padding to account for fixed header -->
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex flex-col items-center justify-center text-center p-4">
+            <div class="mb-8">
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white mb-4">
+                    I'm <span class="text-neon-blue">Azeem MPANO</span>
+                </h1>
+                <p class="text-2xl md:text-4xl font-semibold text-neon-green mb-8">
+                     Software Engineer
+                </p>
+                <p class="max-w-3xl text-lg md:text-xl text-gray-300 leading-relaxed mb-12">
+                    3+ years of experience crafting innovative, scalable web applications with a passion for clean code and exceptional user experiences. Specialized in modern software development using cutting-edge technologies.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl mb-12">
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-green shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-neon-green mb-3">Frontend</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>React.js</li>
+                        <li>TypeScript</li>
+                        <li>TailwindCSS</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-purple shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-neon-purple mb-3">Backend</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>Node.js - Nest.js</li>
+                        <li>Ruby on Rails - Python</li>
+                        <li>SAP CAP</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-blue shadow-lg transition-transform transform hover:scale-105">
+                    <h3 class="text-xl font-bold text-neon-blue mb-3">Database</h3>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>PostgreSQL</li>
+                        <li>MongoDB - Redis</li>
+                        <li>PHP</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p class="max-w-4xl text-lg md:text-xl italic text-gray-400 mb-8">
+                "Transforming complex business requirements into elegant, performant solutions that drive user engagement and business growth."
+            </p>
+
+            <a href="#projects" class="text-neon-green text-lg font-semibold hover:underline mb-8">
+                Explore My Work <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+
+            <div class="flex space-x-6 text-2xl">
+                <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300"><i class="fab fa-github"></i></a>
+                <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors duration-300"><i class="fab fa-twitter"></i></a> <!-- Assuming the last icon is Twitter -->
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-16 px-4 bg-gray-900">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
+                My <span class="text-neon-green">Projects</span>
+            </h2>
+            <div class="w-24 h-1 bg-neon-green mx-auto mb-6 rounded-full"></div>
+            <p class="text-center text-lg md:text-xl text-gray-400 mb-12">
+                Showcasing my latest work and innovative solutions
+            </p>
+
+            <div class="flex items-center justify-center mb-12">
+                <span class="text-neon-purple text-xl font-bold mr-4">• LATEST PROJECTS •</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Project Card 1 -->
+                <div class="bg-gray-800 rounded-xl border border-neon-green shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/1a202c/39ff14?text=Project+Image+1" alt="Score Tracker App" class="w-full h-48 object-cover">
+                        <span class="absolute top-3 left-3 bg-neon-green text-gray-900 text-xs font-bold px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-circle text-xs mr-1"></i> ONLINE
+                        </span>
+                        <span class="absolute top-3 right-3 bg-neon-blue text-gray-900 text-xs font-bold px-2 py-1 rounded-full">
+                            FEATURED
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Score Tracker App</h3>
+                        <p class="text-gray-400 text-sm mb-4">Interactive trivia score tracker for team competitions with five leaderboards and celebrations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-neon-green text-xs px-2 py-1 rounded-full">React.js</span>
+                            <span class="bg-gray-700 text-neon-green text-xs px-2 py-1 rounded-full">TypeScript</span>
+                            <span class="bg-gray-700 text-neon-green text-xs px-2 py-1 rounded-full">TailwindCSS</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="btn-primary bg-neon-green text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 flex items-center">
+                                <i class="fas fa-play-circle mr-2"></i> Live Demo
+                            </a>
+                            <a href="#" class="btn-secondary border border-gray-600 text-gray-300 px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-300 flex items-center">
+                                <i class="fas fa-code mr-2"></i> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 -->
+                <div class="bg-gray-800 rounded-xl border border-neon-purple shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/1a202c/bc13fe?text=Project+Image+2" alt="Regideso Index" class="w-full h-48 object-cover">
+                        <span class="absolute top-3 left-3 bg-neon-purple text-gray-900 text-xs font-bold px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-wrench text-xs mr-1"></i> MAINTENANCE
+                        </span>
+                        <span class="absolute top-3 right-3 bg-neon-blue text-gray-900 text-xs font-bold px-2 py-1 rounded-full">
+                            FEATURED
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Regideso Index</h3>
+                        <p class="text-gray-400 text-sm mb-4">Application for index meter and leaks prevention for a water management company in the DRC.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-neon-purple text-xs px-2 py-1 rounded-full">React.js</span>
+                            <span class="bg-gray-700 text-neon-purple text-xs px-2 py-1 rounded-full">Node.js</span>
+                            <span class="bg-gray-700 text-neon-purple text-xs px-2 py-1 rounded-full">PostgreSQL</span>
+                            <span class="bg-gray-700 text-neon-purple text-xs px-2 py-1 rounded-full">TailwindCSS</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="btn-primary bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-semibold cursor-not-allowed flex items-center">
+                                <i class="fas fa-pause-circle mr-2"></i> Under Maintenance
+                            </a>
+                            <a href="#" class="btn-secondary border border-gray-600 text-gray-300 px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-300 flex items-center">
+                                <i class="fas fa-code mr-2"></i> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 3 -->
+                <div class="bg-gray-800 rounded-xl border border-neon-blue shadow-lg overflow-hidden transition-transform transform hover:scale-105">
+                    <div class="relative">
+                        <img src="https://placehold.co/600x400/1a202c/0ff?text=Project+Image+3" alt="VoicePay" class="w-full h-48 object-cover">
+                        <span class="absolute top-3 left-3 bg-neon-green text-gray-900 text-xs font-bold px-2 py-1 rounded-full flex items-center">
+                            <i class="fas fa-circle text-xs mr-1"></i> ONLINE
+                        </span>
+                        <span class="absolute top-3 right-3 bg-neon-blue text-gray-900 text-xs font-bold px-2 py-1 rounded-full">
+                            FEATURED
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">VoicePay</h3>
+                        <p class="text-gray-400 text-sm mb-4">Voice-Controlled Blockchain Micropayments - Revolutionary payment system using voice commands.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-gray-700 text-neon-blue text-xs px-2 py-1 rounded-full">React.js</span>
+                            <span class="bg-gray-700 text-neon-blue text-xs px-2 py-1 rounded-full">Blockchain</span>
+                            <span class="bg-gray-700 text-neon-blue text-xs px-2 py-1 rounded-full">Web3</span>
+                            <span class="bg-gray-700 text-neon-blue text-xs px-2 py-1 rounded-full">Voice API</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="#" class="btn-primary bg-neon-green text-gray-900 px-4 py-2 rounded-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 flex items-center">
+                                <i class="fas fa-play-circle mr-2"></i> Live Demo
+                            </a>
+                            <a href="#" class="btn-secondary border border-gray-600 text-gray-300 px-4 py-2 rounded-lg font-semibold hover:bg-gray-700 transition-colors duration-300 flex items-center">
+                                <i class="fas fa-code mr-2"></i> Source
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-16 px-4 bg-gray-900">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
+                About <span class="text-neon-blue">Me</span>
+            </h2>
+            <div class="w-24 h-1 bg-neon-blue mx-auto mb-12 rounded-full"></div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-lg text-gray-300 leading-relaxed space-y-6">
+                    <p>
+                        I can help you build a product, feature or website. Look through some of my work and experience! If you like what you see and have a project you need coded, don't hesitate to contact me.
+                    </p>
+                    <p>
+                        With a passion for creating innovative solutions, I specialize in software development using modern technologies. I love turning complex problems into simple, beautiful designs that provide exceptional user experiences.
+                    </p>
+                    <a href="#" class="inline-block bg-neon-blue text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 mt-6 flex items-center justify-center w-fit">
+                        <i class="fas fa-download mr-2"></i> Get My Resume
+                    </a>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-green shadow-lg flex items-center space-x-4">
+                        <i class="fas fa-code text-4xl text-neon-green"></i>
+                        <div>
+                            <p class="text-4xl font-bold text-neon-green">20+</p>
+                            <p class="text-gray-300">Projects Completed</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-purple shadow-lg flex items-center space-x-4">
+                        <i class="fas fa-bolt text-4xl text-neon-purple"></i>
+                        <div>
+                            <p class="text-4xl font-bold text-neon-purple">10+</p>
+                            <p class="text-gray-300">Technologies Mastered</p>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-blue shadow-lg flex items-center space-x-4">
+                        <i class="fas fa-globe text-4xl text-neon-blue"></i>
+                        <div>
+                            <p class="text-4xl font-bold text-neon-blue">3+</p>
+                            <p class="text-gray-300">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Skills Section -->
+        <section id="skills" class="py-16 px-4 bg-gray-900">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
+                My <span class="text-neon-purple">Skills</span>
+            </h2>
+            <div class="w-24 h-1 bg-neon-purple mx-auto mb-12 rounded-full"></div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <!-- Languages -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-green shadow-lg">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fas fa-code text-3xl text-neon-green"></i>
+                        <h3 class="text-xl font-bold text-neon-green">Languages</h3>
+                    </div>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>JavaScript</li>
+                        <li>TypeScript</li>
+                        <li>Ruby</li>
+                        <li>Python</li>
+                        <li>Node Js</li>
+                    </ul>
+                </div>
+                <!-- Frameworks -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-blue shadow-lg">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fas fa-database text-3xl text-neon-blue"></i>
+                        <h3 class="text-xl font-bold text-neon-blue">Frameworks</h3>
+                    </div>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>React.js</li>
+                        <li>Nest.js</li>
+                        <li>TailwindCSS</li>
+                        <li>FastAPI/Flask</li>
+                    </ul>
+                </div>
+                <!-- Cloud & DevOps -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-purple shadow-lg">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fas fa-cloud text-3xl text-neon-purple"></i>
+                        <h3 class="text-xl font-bold text-neon-purple">Cloud & DevOps</h3>
+                    </div>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>AWS</li>
+                        <li>Docker</li>
+                        <li>Heroku/Render</li>
+                    </ul>
+                </div>
+                <!-- Tools & Skills -->
+                <div class="bg-gray-800 p-6 rounded-xl border border-neon-green shadow-lg">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fas fa-tools text-3xl text-neon-green"></i>
+                        <h3 class="text-xl font-bold text-neon-green">Tools & Skills</h3>
+                    </div>
+                    <ul class="list-none space-y-2 text-gray-300">
+                        <li>Redux</li>
+                        <li>Figma/Photoshop/Sketch</li>
+                        <li>Jest</li>
+                        <li>RSpec</li>
+                        <li>WP</li>
+                        <li>Engineering Prompt</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="text-3xl font-bold text-center text-neon-green mb-8">SKILL LEVELS</h3>
+            <div class="max-w-4xl mx-auto space-y-6">
+                <!-- Skill Level 1 -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-white">Frontend Development</span>
+                        <span class="text-neon-orange">90%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-neon-green to-neon-orange h-3 rounded-full progress-bar-fill" style="--progress-width: 90%;"></div>
+                    </div>
+                </div>
+                <!-- Skill Level 2 -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-white">Backend Development</span>
+                        <span class="text-neon-orange">80%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-neon-green to-neon-orange h-3 rounded-full progress-bar-fill" style="--progress-width: 80%;"></div>
+                    </div>
+                </div>
+                <!-- Skill Level 3 -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-white">Cloud & DevOps</span>
+                        <span class="text-neon-orange">75%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-neon-green to-neon-orange h-3 rounded-full progress-bar-fill" style="--progress-width: 75%;"></div>
+                    </div>
+                </div>
+                <!-- Skill Level 4 -->
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-white">Database Design</span>
+                        <span class="text-neon-orange">80%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-neon-green to-neon-orange h-3 rounded-full progress-bar-fill" style="--progress-width: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-16 px-4 bg-gray-900">
+            <h2 class="text-4xl md:text-5xl font-extrabold text-center text-white mb-4">
+                Get In <span class="text-neon-purple">Touch</span>
+            </h2>
+            <div class="w-24 h-1 bg-neon-purple mx-auto mb-12 rounded-full"></div>
+            <p class="text-center text-lg md:text-xl text-gray-400 mb-12">
+                I'm always interested in hearing about new projects, so if you'd like to chat please get in touch.
+            </p>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div class="bg-gray-800 p-8 rounded-xl border border-neon-green shadow-lg">
+                    <h3 class="text-2xl font-bold text-neon-green mb-6">Send Message</h3>
+                    <!-- Formspree integration: Replace YOUR_FORMSPREE_FORM_ID with your actual form ID -->
+                    <form action="https://formcarry.com/s/fuSHeFK-5ah" method="POST" class="space-y-6">
+                        <div>
+                            <label for="fullName" class="sr-only">Full Name</label>
+                            <input type="text" id="fullName" name="FULLNAMES:" placeholder="Full Name" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-neon-green text-white" required>
+                        </div>
+                        <div>
+                            <label for="emailAddress" class="sr-only">Email Address</label>
+                            <input type="email" id="emailAddress" name="EMAIL ADDRESS:" placeholder="Email Address" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-neon-green text-white" required>
+                        </div>
+                        <div>
+                            <label for="yourMessage" class="sr-only">Your Message</label>
+                            <textarea id="yourMessage" name="MESSAGE:" rows="6" placeholder="Your Message" class="w-full p-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:border-neon-green text-white" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-neon-green text-gray-900 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-80 transition-colors duration-300 flex items-center justify-center">
+                            <i class="fas fa-paper-plane mr-2"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Contact Info & Socials -->
+                <div class="space-y-8">
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-blue shadow-lg flex items-center space-x-4">
+                        <i class="fas fa-envelope text-3xl text-neon-blue"></i>
+                        <div>
+                            <h3 class="text-xl font-bold text-neon-blue">Email</h3>
+                            <p class="text-gray-300">azeem.mpano@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-green shadow-lg">
+                        <h3 class="text-2xl font-bold text-neon-green mb-6">Connect With Me</h3>
+                        <div class="flex space-x-4 text-3xl">
+                            <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors duration-300"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-neon-green transition-colors duration-300"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-neon-blue transition-colors duration-300"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-800 p-6 rounded-xl border border-neon-purple shadow-lg text-center">
+                        <p class="text-2xl font-bold text-neon-green flex items-center justify-center">
+                            <i class="fas fa-circle text-sm mr-3"></i> STATUS: ONLINE
+                        </p>
+                        <p class="text-gray-400 mt-2">Available for new projects and collaborations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="py-8 px-4 bg-gray-900 text-center text-gray-500 text-sm border-t border-gray-800">
+        <p>&copy; 2025. Azeem MPANO All rights reserved. Built with HTML, TailwindCSS & JavaScript.</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('mobile-menu-open');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('mobile-menu-open');
+            });
+        });
+
+        // Dark/Light Mode Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                themeToggle.innerHTML = '<i class="fas fa-sun text-white"></i>'; // Change icon to sun
+            } else {
+                htmlElement.classList.remove('light');
+                htmlElement.classList.add('dark');
+                themeToggle.innerHTML = '<i class="fas fa-moon text-white"></i>'; // Change icon to moon
+            }
+        });
+
+        // Animate progress bars on scroll
+        const skillSection = document.getElementById('skills');
+        const progressBars = document.querySelectorAll('.progress-bar-fill');
+
+        const animateProgressBars = () => {
+            progressBars.forEach(bar => {
+                const width = bar.style.getPropertyValue('--progress-width');
+                bar.style.width = width; // Set the width to trigger animation
+                bar.classList.add('animate'); // Add class to trigger transition
+            });
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    observer.unobserve(skillSection); // Stop observing once animated
+                }
+            });
+        }, { threshold: 0.5 }); // Trigger when 50% of the section is visible
+
+        observer.observe(skillSection);
+    </script>
+</body>
+</html>
